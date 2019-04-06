@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight} from 'react-native';
 import restaurant from './screen/restaurant';
 import prayerPlace from './screen/prayerPlace';
 import prayerTime from './screen/prayerTime';
@@ -8,35 +8,95 @@ import {createBottomTabNavigator,createAppContainer, createStackNavigator} from 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import showAllRestaurant from './screen/showAllRestaurant';
-import { Button } from 'native-base';
+import { Button, Content } from 'native-base';
 import detail from './screen/detail';
+import review from './screen/review';
+import Axios from 'axios';
+import AlbumList from './screen/AlbumList';
+
 
 
 class App extends Component {
+  constructor(){
+    super()
+      this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
+        albums: []
+      }
+    }
+    
+  componentWillMount() {
+    this.setState({ test : 'nut'})
+    Axios.get('http://rallycoding.herokuapp.com/api/music_albums')
+    .then(response => this.setState({ albums: response.data }))
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to my Application!</Text>
-        <Button onPress={() => this.props.navigation.navigate('ShowAll')}>
-          <Text>View All</Text>
-          </Button>
-      </View>
+      <Content>
+        <View>
+          <Image source={require('./image/Imageforlogo.png')} style={{width: 430, height: 180}} />
+            <View style={{flex: 1, flexDirection: 'row'}}>
+                  {
+                    this.state.albums.map( taylor => 
+                    <View key={taylor.title} style={{alignItems: 'center', marginTop:10}}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('ShowAll')}>
+                          <Image source={{uri: taylor.image}} style={{width: 100, height: 100, margin: 7}} />
+                          </TouchableHighlight>
+                      <Text>{taylor.title}</Text>
+                      <Text>{taylor.artist}</Text>
+                    </View>
+                      )
+                  }
+            </View>
+         </View>
+      </Content>
     );
   }
 }
-const StackNavigator2 = createStackNavigator(
+const StackNavigator = createStackNavigator(
   {
-    Navigate2:{ screen: App,
+    Navigate:{ screen: App,
      navigationOptions:{
        title:"Home"
      }},
-    ShowAll:{ screen: showAllRestaurant,
+    ShowAll:{ screen: AlbumList,
       navigationOptions:{
         title:"All restaurant"
       }},
     detail:{ screen: detail,
       navigationOptions:{
         title:"Detail"
+      }}
+  },
+  {
+    initialRouteName : 'Navigate',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#CC6600',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: { 
+        flex:1,
+        textAlign: 'center',
+        alignSelf: 'center' 
+      },
+      headerRight: (<View />)
+    },
+  }
+);
+const StackNavigator2 = createStackNavigator(
+  {
+    Navigate2:{ screen: AlbumList,
+     navigationOptions:{
+       title:"Restaurant"
+     }},
+     detail:{ screen: detail,
+      navigationOptions:{
+        title:"Detail"
+      }},
+      review:{ screen: review,
+        navigationOptions:{
+          title:"Review"
       }}
   },
   {
@@ -57,14 +117,14 @@ const StackNavigator2 = createStackNavigator(
 );
 const TabNavigator = createBottomTabNavigator(
   {
-    Home: {screen: StackNavigator2,
+    Home: {screen: StackNavigator,
       navigationOptions:{
       tabBarIcon:()=>(
         <Icon name="ios-home" style={{color:'white'}} size={30}/>
       )
     }
   },
-    Restaurant:{screen: restaurant,
+    Restaurant:{screen: StackNavigator2,
       navigationOptions:{
         tabBarIcon:()=>(
           <Icon name="md-restaurant" style={{color:'white'}} size={30}/>
