@@ -12,7 +12,6 @@ import { Button, Content } from 'native-base';
 import detail from './screen/detail';
 import review from './screen/review';
 import Axios from 'axios';
-import AlbumList from './screen/AlbumList';
 
 
 
