@@ -5,7 +5,7 @@ import { Content,Item,Icon,Input } from 'native-base';
 import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
-import { red } from 'ansi-colors';
+
 
 export default class restaurant extends Component {
 
