@@ -6,7 +6,6 @@ import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
 export default class restaurant extends Component {
 
 //   render() {
