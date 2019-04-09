@@ -12,6 +12,7 @@ import { Button, Content } from 'native-base';
 import detail from './screen/detail';
 import review from './screen/review';
 import Axios from 'axios';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
@@ -37,7 +38,8 @@ class App extends Component {
               <TouchableHighlight onPress={() => this.props.navigation.navigate('ShowAll')}>
                 <Text style={{marginTop:10,fontSize:15, color:'black'}}>Restaurant</Text>
               </TouchableHighlight>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+              <ScrollView horizontal={true} style={styles.container}
+                showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                   {
                     this.state.albums.map( taylor => 
                     <View key={taylor.title} style={{alignItems: 'center', marginTop:10}}>
@@ -49,7 +51,7 @@ class App extends Component {
                     </View>
                       )
                   }
-            </View>
+            </ScrollView>
          </View>
       </Content>
     );
@@ -184,9 +186,10 @@ const TabNavigator = createBottomTabNavigator(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
