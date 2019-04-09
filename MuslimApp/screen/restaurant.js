@@ -38,7 +38,7 @@ constructor(){
                   { 
                     this.state.albums1.map( taylor2 => 
                       <Card>
-                       <View key={taylor2.title} style={{ marginTop:10}}>
+                       <View key={taylor2.title} >
                           <CardSection>
                            <View>
                               <TouchableHighlight onPress={() => this.props.navigation.navigate('detail',
