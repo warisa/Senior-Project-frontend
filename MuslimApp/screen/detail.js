@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image} from 'react-native';
+import { View, Text, Image, TouchableHighlight} from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
+import {Button, Icon} from 'native-base';
 
 export default class detail extends Component {
-
+ss
   render() {
     const { navigation } = this.props;
     const title = navigation.getParam('titleId');
@@ -18,7 +19,7 @@ export default class detail extends Component {
           <Image source={{uri:'http://halalinthailand.com/wp-content/uploads/2016/03/IMG_2108.jpg'}}
                   style={{width: 410, height: 200}}/>
           <CardSection>
-            <View style={{alignItems:'center',justifyContent:'center'}}>
+            <View >
               <View style={{borderRadius:30,backgroundColor:'#FFDAB9'}}>
                 {/* <Image style={styles.thumbnailStyle} source={{ uri: thumbnail }}/> */}
                 <Text style={{color:'black',fontSize:25,fontWeight:'bold'}}> Title: {JSON.stringify(title)}</Text>
@@ -64,6 +65,27 @@ export default class detail extends Component {
               </View>
             {/* <Image style={styles.imageStyle} source={{ uri: image }}/> */}
             </CardSection>
+            <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดร้านเพิ่มเติม</Text>
+            <Card>
+              <CardSection>
+                <View style={{margin:10}}>
+                  <Text style={styles.fontStyle2}> - ที่จอดรถ </Text>
+                  <Text style={styles.fontStyle2}> - ห้องละหมาด </Text>
+                </View>
+                <View style={{margin:10}}>
+                  <Text style={styles.fontStyle2}> - เครื่องปรับอากาศ </Text>
+                  <Text style={styles.fontStyle2}> - รับบัตรเครดิต </Text>
+                </View>
+                <View style={{margin:10}}>
+                  <Text style={styles.fontStyle2}> - จองล่วงหน้า </Text>
+                </View>
+              </CardSection>
+            </Card>
+            <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+            <Button style={[styles.buttonContainer, styles.loginButton]}  onPress={() => this.props.navigation.navigate('review')}>
+                <Text>Review</Text>
+            </Button>
+            </View>
         </Card>
         </ScrollView>
     );
@@ -98,5 +120,17 @@ const styles = {
     width:100,
     height:100,
     marginRight: 10,
+  },
+  buttonContainer: {
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin:20,
+    width:100,
+    borderRadius:30,
+  },
+  loginButton: {
+    backgroundColor: "#00b5ec",
   }
 };
