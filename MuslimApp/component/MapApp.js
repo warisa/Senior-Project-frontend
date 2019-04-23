@@ -15,12 +15,21 @@ class MapApp extends Component {
             <MapView
                 style={styles.map}
                 initialRegion={{ // initial region set to Bileto
-                    latitude: 50.0517273,
-                    longitude: 14.4286503,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
+                    latitude: 13.636544, 
+                    longitude: 100.491329,
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.0121,
                 }}
-            />
+                showsUserLocation={true}
+            >
+            <MapView.Marker
+                coordinate={{
+                    latitude: 13.636544, 
+                    longitude: 100.491329,
+                }}
+                title={"I-MY SHABU"}
+             />
+             </MapView>
         </View>
     );
 
@@ -30,10 +39,11 @@ class MapApp extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F5FCFF"
+        backgroundColor: "#F5FCFF",
     },
     map: {
-        flex: 1,
+        width: 420,
+        height: 200
     }
 });
 
