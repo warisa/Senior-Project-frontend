@@ -4,6 +4,7 @@ import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
 import {Button, Icon} from 'native-base';
+import MapApp from '../component/MapApp';
 
 export default class detail extends Component {
 ss
@@ -65,6 +66,7 @@ ss
               </View>
             {/* <Image style={styles.imageStyle} source={{ uri: image }}/> */}
             </CardSection>
+            <MapApp/>
             <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดร้านเพิ่มเติม</Text>
             <Card>
               <CardSection>
@@ -82,7 +84,7 @@ ss
               </CardSection>
             </Card>
             <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-            <Button style={[styles.buttonContainer, styles.loginButton]}  onPress={() => this.props.navigation.navigate('review')}>
+            <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('review')}>
                 <Text>Review</Text>
             </Button>
             </View>
@@ -130,7 +132,7 @@ const styles = {
     width:100,
     borderRadius:30,
   },
-  loginButton: {
-    backgroundColor: "#00b5ec",
+  reviewButton: {
+    backgroundColor: '#CC6600',
   }
 };
