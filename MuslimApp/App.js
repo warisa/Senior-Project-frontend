@@ -13,6 +13,7 @@ import detail from './screen/detail';
 import review from './screen/review';
 import Axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
+import Card from './screen/Card';
 
 
 
@@ -20,34 +21,51 @@ class App extends Component {
   constructor(){
     super()
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
-        albums: []
+        albums: [],
+        pray: []
       }
     }
     
   componentWillMount() {
     this.setState({ test : 'nut'})
-    Axios.get('http://rallycoding.herokuapp.com/api/music_albums')
+    Axios.get('http://10.4.56.94/restaurant')
     .then(response => this.setState({ albums: response.data }))
+    Axios.get('http://10.4.56.94/prayerplace')
+    .then(response => this.setState({ pray: response.data }))
   }
-
   render() {
     return (
       <Content>
         <View>
-          <Image source={require('./image/Imageforlogo.png')} style={{width: 430, height: 180}} />
+          <Image source={require('./image/Imageforlogo.png')} style={{width:'100%',height:150}} />
               <TouchableHighlight onPress={() => this.props.navigation.navigate('ShowAll')}>
                 <Text style={{marginTop:10,fontSize:15, color:'black'}}>Restaurant</Text>
               </TouchableHighlight>
+              
               <ScrollView horizontal={true} style={styles.container}
                 showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                   {
                     this.state.albums.map( taylor => 
-                    <View key={taylor.title} style={{alignItems: 'center', marginTop:10}}>
-                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail',
-                          {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}>
-                          <Image source={{uri: taylor.image}} style={{width: 100, height: 100, margin: 7}} />
+                    <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail')}>
+                          {/* // {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}> */}
+                          <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
                           </TouchableHighlight>
-                      <Text>{taylor.title}</Text>
+                      <Text style={{fontSize:10}}>{taylor.placeName}</Text>
+                    </View>
+                      )
+                  }
+            </ScrollView>
+            <ScrollView horizontal={true} style={styles.container}
+                showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+                  {
+                    this.state.pray.map( taylor => 
+                    <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail')}>
+                          {/* // {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}> */}
+                          <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
+                          </TouchableHighlight>
+                      <Text style={{fontSize:10}}>{taylor.placeName}</Text>
                     </View>
                       )
                   }
@@ -59,7 +77,7 @@ class App extends Component {
 }
 const StackNavigator = createStackNavigator(
   {
-    Navigate:{ screen: App,
+    Navigate:{ screen: prayerTime,
      navigationOptions:{
        title:"Home"
      }},
@@ -81,8 +99,6 @@ const StackNavigator = createStackNavigator(
       headerTintColor: '#fff',
       headerTitleStyle: { 
         flex:1,
-        textAlign: 'center',
-        alignSelf: 'center' 
       },
       headerRight: (<View />)
     },
@@ -90,7 +106,7 @@ const StackNavigator = createStackNavigator(
 );
 const StackNavigator2 = createStackNavigator(
   {
-    Navigate2:{ screen: restaurant,
+    restaurant:{ screen: restaurant,
      navigationOptions:{
        title:"Restaurant"
      }},
@@ -104,7 +120,7 @@ const StackNavigator2 = createStackNavigator(
       }}
   },
   {
-    initialRouteName : 'Navigate2',
+    initialRouteName : 'restaurant',
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: '#CC6600',
@@ -112,8 +128,35 @@ const StackNavigator2 = createStackNavigator(
       headerTintColor: '#fff',
       headerTitleStyle: { 
         flex:1,
-        textAlign: 'center',
-        alignSelf: 'center' 
+      },
+      headerRight: (<View />)
+    },
+  }
+);
+const StackNavigator3 = createStackNavigator(
+  {
+    prayerPlace:{ screen: prayerPlace,
+     navigationOptions:{
+       title:"Prayer Place"
+     }},
+     detail:{ screen: detail,
+      navigationOptions:{
+        title:"Detail"
+      }},
+      review:{ screen: review,
+        navigationOptions:{
+          title:""
+      }}
+  },
+  {
+    initialRouteName : 'prayerPlace',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#CC6600',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: { 
+        flex:1,
       },
       headerRight: (<View />)
     },
@@ -124,35 +167,35 @@ const TabNavigator = createBottomTabNavigator(
     Home: {screen: StackNavigator,
       navigationOptions:{
       tabBarIcon:()=>(
-        <Icon name="ios-home" style={{color:'white'}} size={30}/>
+        <Icon name="ios-home" style={{color:'white'}} size={25}/>
       )
     }
   },
     Restaurant:{screen: StackNavigator2,
       navigationOptions:{
         tabBarIcon:()=>(
-          <Icon name="md-restaurant" style={{color:'white'}} size={30}/>
+          <Icon name="md-restaurant" style={{color:'white'}} size={25}/>
         )
       }
     },
-    PrayerPlace:{screen: prayerPlace,
+    PrayerPlace:{screen: StackNavigator3,
       navigationOptions:{
         tabBarIcon:()=>(
-          <Icons name="home-map-marker" style={{color:'white'}} size={30}/>
+          <Icons name="home-map-marker" style={{color:'white'}} size={25}/>
         )
       }
     },
     PrayerTime:{screen: prayerTime,
       navigationOptions:{
         tabBarIcon:()=>(
-          <Icon name="ios-alarm" style={{color:'white'}} size={30}/>
+          <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
         )
       }
     },
     Account:{screen: account,
       navigationOptions:{
         tabBarIcon:()=>(
-          <Icon name="ios-contact" style={{color:'white'}} size={30}/>
+          <Icon name="ios-contact" style={{color:'white'}} size={25}/>
         )
       }
     },
@@ -173,7 +216,7 @@ const TabNavigator = createBottomTabNavigator(
           borderRightWidth: 1,
       },
       labelStyle: {
-        fontSize: 12,
+        fontSize: 10,
          marginTop: 0,
          color :'#ffffff'
       },
