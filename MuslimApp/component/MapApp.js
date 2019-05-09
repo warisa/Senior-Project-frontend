@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F5FCFF",
     },
     map: {
-        width: 420,
+        width: '100%',
         height: 200
     }
 });
