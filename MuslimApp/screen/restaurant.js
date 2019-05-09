@@ -19,12 +19,12 @@ export default class restaurant extends Component {
 constructor(){
   super()
     this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
-      albums1: [],
+      place: [],
     }
   }
   componentWillMount() {
-    Axios.get('http://rallycoding.herokuapp.com/api/music_albums')
-    .then(response => this.setState({ albums1: response.data }))
+    Axios.get('http://10.4.56.94/restaurant')
+    .then(response => this.setState({ place: response.data }))
   }
 
   render() {
@@ -36,21 +36,23 @@ constructor(){
        </Item>   
             <ScrollView>
                   { 
-                    this.state.albums1.map( taylor2 => 
-                      <Card>
-                       <View key={taylor2.title} >
-                          <CardSection>
+                    this.state.place.map( restaurant => 
+                      <Card >
+                       <View key={restaurant.placeId} >
+                          <CardSection >
                            <View>
-                              <TouchableHighlight onPress={() => this.props.navigation.navigate('detail',
-                                {titleId: taylor2.title,artist:taylor2.artist,thumbnail: taylor2.thumbnail_image,image: taylor2.image})}>
-                                 <Image source={{uri: taylor2.image}} style={{width: 100, height: 100, margin: 7}}></Image>
+                              <TouchableHighlight onPress={() => this.props.navigation.navigate('detail')}>
+                              
+                                 {/* {titleId: taylor2.title,artist:taylor2.artist,thumbnail: taylor2.thumbnail_image,image: taylor2.image})} */}
+                                
+                                 <Image source={{uri: restaurant.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
                               </TouchableHighlight>
                             </View>
                            <View style={styles.container}>
-                              <Text style={{color:'black'}}>{taylor2.title}</Text>
-                              <Text style={{color:'red'}}>เวลาเปิด: 15:00 น.</Text>
-                              <Text style={{color:'red'}}>เวลาปิด: 22:00 น.</Text>
-                              <Text style={{color:'black'}}>เบอร์โทรศัพท์ : 084-019-9924</Text>
+                           <Text style={{color:'black'}}>{restaurant.placeName}</Text>
+                              <Text style={{color:'black'}}>Open: {restaurant.placeOpeningTime}</Text>
+                              <Text style={{color:'black'}}>Close: {restaurant.placeClosingTime}</Text>
+                              <Text style={{color:'black'}}>Telno: {restaurant.placeTelno}</Text>
                             </View>
                           </CardSection>
                         </View>
@@ -66,6 +68,8 @@ const styles = StyleSheet.create({
     container:{
         justifyContent: 'space-around',
         flexDirection:'column',
-        marginLeft: 20
+        marginLeft: 10,
+        flex: 1,
+        width: '100%'
     }
 });
