@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import CardSection from './CardSection';
+import Card from './Card'
 
 
 export default class prayerTime extends Component {
   render() {
         return (
-          <View style={styles.container}>
-            <Text style={{color: 'white'}}> restaurant </Text>
-          </View>
+          <Card>
+            <CardSection>
+
+            </CardSection>
+            <CardSection>
+
+            </CardSection>
+            <CardSection>
+
+            </CardSection>
+            <CardSection>
+
+            </CardSection>
+            <CardSection>
+
+            </CardSection>
+            <CardSection>
+
+            </CardSection>
+          </Card>
         );
       }
     }
