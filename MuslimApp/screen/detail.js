@@ -18,7 +18,7 @@ ss
         <ScrollView>
         <Card>
           <Image source={{uri:'http://halalinthailand.com/wp-content/uploads/2016/03/IMG_2108.jpg'}}
-                  style={{width: 410, height: 200}}/>
+                  style={{width: '100%', height: 200}}/>
           <CardSection>
             <View >
               <View style={{borderRadius:30,backgroundColor:'#FFDAB9'}}>
@@ -55,14 +55,16 @@ ss
               <Text style={styles.fontStyle}>เวลาให้บริการ: </Text>
               <Text style={styles.fontStyle}>ช่วงราคา: </Text>
               <Text style={styles.fontStyle}>เบอร์โทรศัพท์: </Text>
-              <Text style={styles.fontStyle}>ที่อยู่ร้าน: </Text>
+              <Text style={styles.fontStyle}>ที่อยู่ของร้าน: </Text>
+              <Text style={styles.fontStyle}>เพจของร้าน: </Text>
               </View>
-              <View style={{marginTop:27}}>
+              <View style={{marginTop:35,flex:1,width:'100%'}}>
                   <Text style={styles.fontStyle2}>เปิดให้บริการอยู่ในขณะนี้</Text>
                   <Text style={styles.fontStyle2}>15:00-22:00 น.</Text>
                   <Text style={styles.fontStyle2}>299-338</Text>
                   <Text style={styles.fontStyle2}>084-019-9924 </Text>
                   <Text style={styles.fontStyle2}>96/2 ประชาอุทิศ 54 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140 </Text>
+                  <Text style={styles.fontStyle2}>https://www.facebook.com/IMYSHABU/</Text>
               </View>
             {/* <Image style={styles.imageStyle} source={{ uri: image }}/> */}
             </CardSection>
@@ -117,6 +119,7 @@ const styles = {
   fontStyle2:{
     marginTop: 10,
     color: 'black',
+    fontSize: 12
   },
   image:{
     width:100,
