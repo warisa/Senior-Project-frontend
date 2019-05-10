@@ -32,7 +32,7 @@ export default class prayerPlace extends Component {
                          <View key={prayerplace.placeId} style={{ marginTop:10,width:'100%'}}>
                             <CardSection>
                              <View >
-                                <TouchableHighlight onPress={() => this.props.navigation.navigate('detail')}>
+                                <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:prayerplace.placeId})}>
                                 {/* ,
                                   {titleId: taylor2.title,artist:taylor2.artist,thumbnail: taylor2.thumbnail_image,image: taylor2.image})}> */}
                                    <Image source={{uri: prayerplace.imageName}} style={{width: 150, height: 100, margin: 7}}></Image>

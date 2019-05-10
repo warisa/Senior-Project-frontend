@@ -20,6 +20,7 @@ constructor(){
   super()
     this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
       place: [],
+      search: null
     }
   }
   componentWillMount() {
@@ -27,12 +28,25 @@ constructor(){
     .then(response => this.setState({ place: response.data }))
   }
 
+  search1(search){
+    Axios.post('http://10.4.56.94/restaurant',
+    {
+      "search" : search
+    })
+    .then(response => this.setState({ albums: response.data }))
+  }
+
+  search2(search){
+    Axios.get('http://10.4.56.94/restaurant/'+search)
+    .then(response => this.setState({ albums: response.data }))
+  }
+
   render() {
     return (
       <View>   
         <Item>
          <Icon name="ios-search" />
-        <Input placeholder="Search" />
+        <Input placeholder="Search" value={this.setState.search} onSubmitEditing={(event) => search2(event) }/>
        </Item>   
             <ScrollView>
                   { 
@@ -41,7 +55,7 @@ constructor(){
                        <View key={restaurant.placeId} >
                           <CardSection >
                            <View>
-                              <TouchableHighlight onPress={() => this.props.navigation.navigate('detail')}>
+                              <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurantDetail',{placeId:restaurant.placeId})}>
                               
                                  {/* {titleId: taylor2.title,artist:taylor2.artist,thumbnail: taylor2.thumbnail_image,image: taylor2.image})} */}
                                 
