@@ -9,11 +9,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import showAllRestaurant from './screen/showAllRestaurant';
 import { Button, Content } from 'native-base';
-import detail from './screen/detail';
+import detail from './screen/restaurantDetail';
 import review from './screen/review';
 import Axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
 import Card from './screen/Card';
+import restaurantDetail from './screen/restaurantDetail';
+import prayerDetail from './screen/prayerDetail';
 
 
 
@@ -47,7 +49,7 @@ class App extends Component {
                   {
                     this.state.albums.map( taylor => 
                     <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail')}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurantDetail',{placeId:taylor.placeId})}>
                           {/* // {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}> */}
                           <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
                           </TouchableHighlight>
@@ -61,7 +63,7 @@ class App extends Component {
                   {
                     this.state.pray.map( taylor => 
                     <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail')}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:taylor.placeId})}>
                           {/* // {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}> */}
                           <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
                           </TouchableHighlight>
@@ -77,7 +79,7 @@ class App extends Component {
 }
 const StackNavigator = createStackNavigator(
   {
-    Navigate:{ screen: prayerTime,
+    Navigate:{ screen: App,
      navigationOptions:{
        title:"Home"
      }},
@@ -85,10 +87,12 @@ const StackNavigator = createStackNavigator(
       navigationOptions:{
         title:"All restaurant"
       }},
-    detail:{ screen: detail,
-      navigationOptions:{
-        title:"Detail"
-      }}
+      detail:{ screen: restaurantDetail,
+        navigationOptions:{
+          title:"Detail"
+        }
+      },
+
   },
   {
     initialRouteName : 'Navigate',
@@ -110,7 +114,7 @@ const StackNavigator2 = createStackNavigator(
      navigationOptions:{
        title:"Restaurant"
      }},
-     detail:{ screen: detail,
+     restaurantDetail:{ screen: restaurantDetail,
       navigationOptions:{
         title:"Detail"
       }},
@@ -139,13 +143,13 @@ const StackNavigator3 = createStackNavigator(
      navigationOptions:{
        title:"Prayer Place"
      }},
-     detail:{ screen: detail,
+     prayerDetail:{ screen: prayerDetail,
       navigationOptions:{
         title:"Detail"
       }},
       review:{ screen: review,
         navigationOptions:{
-          title:""
+          headerVisible: false,
       }}
   },
   {
