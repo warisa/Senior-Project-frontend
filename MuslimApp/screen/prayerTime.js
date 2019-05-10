@@ -11,12 +11,24 @@ export default class prayerTime extends Component {
   constructor(){
     super()
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
-        place: [],
+        timeToDay: '',
+        time: [],
       }
     }
+    componentDidMount() {
+      var that = this;
+      var date = new Date().getDate(); //Current Date
+      var month = new Date().getMonth() + 1; //Current Month
+      var year = new Date().getFullYear(); //Current Year
+      that.setState({
+        //Setting the value of the date time
+        date:
+          date + '/' + month + '/' + year,
+      });
+    }
     componentWillMount() {
-      Axios.get('http://10.4.56.94/restaurant')
-      .then(response => this.setState({ place: response.data }))
+      Axios.get('http://10.4.56.94/prayertime')
+      .then(response => this.setState({ time: response.data }))
     }
   render() {
         return (
@@ -29,18 +41,18 @@ export default class prayerTime extends Component {
         <Content>
           <View>
               <View style={{alignItems:'center',justifyContent:'center'}}>
-                   <Text style={styles.fontStyle}>Date: 09 May 2019</Text>
+                   <Text style={styles.fontStyle}>Date: {this.state.date}</Text>
                    </View>
                   { 
-                    this.state.place.map( restaurant => 
+                    this.state.time.map( prayertime => 
                       <Card >
-                       <View key={restaurant.placeId} >
-                       <Text style={{margin:10,color:'black',fontSize:15}}>{restaurant.placeName}</Text>
+                       <View key={prayertime.prayerTimeId} >
+                       <Text style={{margin:10,color:'black',fontSize:15}}>{prayertime.prayerType}</Text>
                           <CardSection >    
                               <View>
                               <Icon name="md-alarm" style={{color:'black',marginLeft:20}} size={30}/>
                                 </View>
-                                <View><Text style={{marginLeft:20,fontSize:20}}>{restaurant.placeOpeningTime}</Text>
+                                <View><Text style={{marginLeft:20,fontSize:20}}>{prayertime.prayerTime}</Text>
                                 </View>
                           </CardSection>
                         </View>
