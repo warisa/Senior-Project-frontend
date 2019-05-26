@@ -17,7 +17,8 @@ import Card from './screen/Card';
 import restaurantDetail from './screen/restaurantDetail';
 import prayerDetail from './screen/prayerDetail';
 import category from './screen/category';
-
+import categoryPrayer from './screen/categoryPrayer';
+import restaurantPrayer from './screen/restaurantPrayer';
 
 
 class App extends Component {
@@ -50,7 +51,7 @@ class App extends Component {
                   {
                     this.state.albums.map( taylor => 
                     <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                          <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurantDetail',{placeId:taylor.placeId})}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail',{placeId:taylor.placeId})}>
                           {/* // {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}> */}
                           <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
                           </TouchableHighlight>
@@ -65,12 +66,12 @@ class App extends Component {
             <ScrollView horizontal={true} style={styles.container}
                 showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                   {
-                    this.state.pray.map( taylor => 
-                    <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                          <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:taylor.placeId})}>
-                          <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
+                    this.state.pray.map( prayer => 
+                    <View key={prayer.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail1',{placeId:prayer.placeId})}>
+                          <Image source={{uri: prayer.imageName}} style={{width: 120, height: 100, margin: 7}} />
                           </TouchableHighlight>
-                      <Text style={{fontSize:10}}>{taylor.placeName}</Text>
+                      <Text style={{fontSize:10}}>{prayer.placeName}</Text>
                     </View>
                       )
                   }
@@ -87,6 +88,11 @@ const StackNavigator = createStackNavigator(
        title:"Home"
      }},
       detail:{ screen: restaurantDetail,
+        navigationOptions:{
+          title:"Detail"
+        }
+      },
+      detail1:{ screen: prayerDetail,
         navigationOptions:{
           title:"Detail"
         }
@@ -149,6 +155,14 @@ const StackNavigator3 = createStackNavigator(
      prayerDetail:{ screen: prayerDetail,
       navigationOptions:{
         title:"Detail"
+      }},
+      restaurantPrayer:{screen: restaurantPrayer,
+        navigationOptions:{
+          title:"Prayer Place"
+      }},
+      categoryPrayer:{screen: categoryPrayer,
+        navigationOptions:{
+          title:"Prayer Place"
       }},
       review:{ screen: review,
         navigationOptions:{
