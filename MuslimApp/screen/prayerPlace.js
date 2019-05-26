@@ -3,7 +3,7 @@ import { View, Text, StyleSheet , TouchableHighlight, Image} from 'react-native'
 import Card from './Card';
 import CardSection from './CardSection';
 import Axios from 'axios';
-import { Item,Icon,Input } from 'native-base';
+import { Item,Icon,Input, ListItem, Left, Body, Right, List } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default class prayerPlace extends Component {
@@ -11,21 +11,45 @@ export default class prayerPlace extends Component {
     super()
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
         place2: [],
+        category:[]
       }
     }
     componentWillMount() {
       Axios.get('http://10.4.56.94/prayerplace')
       .then(response => this.setState({ place2: response.data }))
     }
-  
+    searchPrayerPlace(search){
+      if(search==null || search==""){
+        Axios.get('http://10.4.56.94/prayerplace')
+        .then(response => this.setState({ place2: response.data }))
+      }else{
+        Axios.get('http://10.4.56.94/searchbyword2/'+search)
+        .then(response => this.setState({ place2: response.data }))
+      }
+    }
     render() {
       return (
         <View>   
           <Item>
            <Icon name="ios-search" />
-          <Input placeholder="Search" />
-         </Item>   
-              <ScrollView>
+           <Input placeholder="Search" value={this.setState.search} onChangeText={(event) => this.searchPrayerPlace(event) }/>
+         </Item>
+         <Card>
+           <CardSection>
+             <View style={styles.container1}>
+                      <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurantPrayer',{placePrayerRoom :"1"})}>
+                        <Image source={require('../image/restaurant.png')} style={{width:90,height:80,marginRight:10}}/>
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={() => this.props.navigation.navigate('categoryPrayer',{categoryName :"Shopping Mall"})}>
+                        <Image source={require('../image/shop.png')} style={{width:100,height:80,marginRight:10}}/>
+                      </TouchableHighlight>
+                      <TouchableHighlight onPress={() => this.props.navigation.navigate('categoryPrayer',{categoryName :"Mosque"})}>
+                        <Image source={require('../image/masjid.png')} style={{width:90,height:70,marginRight:10}}/>
+                      </TouchableHighlight>
+                      </View>
+         </CardSection>
+         </Card>
+            <ScrollView>
                     { 
                       this.state.place2.map( prayerplace => 
                         <Card>
@@ -40,8 +64,8 @@ export default class prayerPlace extends Component {
                               </View>
                              <View style={styles.container}>
                                 <Text style={{color:'black'}}>{prayerplace.placeName}</Text>
-                                {/* <Text style={{color:'black'}}>เวลาเปิด: - </Text>
-                                <Text style={{color:'black'}}>เวลาปิด: - </Text> */}
+                                {/* <Text style={{color:'black'}}>Open: {prayerplace.placeOpeningTime}</Text>
+                                <Text style={{color:'black'}}>Close: {prayerplace.placeClosingTime}</Text> */}
                                 <Text style={{color:'black'}}>Telno : {prayerplace.placeTelno}</Text>
                               </View>
                             </CardSection>
@@ -61,5 +85,11 @@ export default class prayerPlace extends Component {
           marginLeft: 20,
           flex: 1,
           width:'100%'
+      },
+      container1: {
+        flex: 1,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems: 'center',
       }
   });
