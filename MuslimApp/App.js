@@ -16,6 +16,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Card from './screen/Card';
 import restaurantDetail from './screen/restaurantDetail';
 import prayerDetail from './screen/prayerDetail';
+import category from './screen/category';
 
 
 
@@ -40,7 +41,7 @@ class App extends Component {
       <Content>
         <View>
           <Image source={require('./image/Imageforlogo.png')} style={{width:'100%',height:150}} />
-              <TouchableHighlight onPress={() => this.props.navigation.navigate('ShowAll')}>
+              <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurant')}>
                 <Text style={{marginTop:10,fontSize:15, color:'black'}}>Restaurant</Text>
               </TouchableHighlight>
               
@@ -58,13 +59,15 @@ class App extends Component {
                       )
                   }
             </ScrollView>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerPlace')}>
+                <Text style={{marginTop:10,fontSize:15, color:'black'}}>Prayer Place</Text>
+              </TouchableHighlight>
             <ScrollView horizontal={true} style={styles.container}
                 showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                   {
                     this.state.pray.map( taylor => 
                     <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
                           <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:taylor.placeId})}>
-                          {/* // {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}> */}
                           <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
                           </TouchableHighlight>
                       <Text style={{fontSize:10}}>{taylor.placeName}</Text>
@@ -83,10 +86,6 @@ const StackNavigator = createStackNavigator(
      navigationOptions:{
        title:"Home"
      }},
-    ShowAll:{ screen: restaurant,
-      navigationOptions:{
-        title:"All restaurant"
-      }},
       detail:{ screen: restaurantDetail,
         navigationOptions:{
           title:"Detail"
@@ -117,6 +116,10 @@ const StackNavigator2 = createStackNavigator(
      restaurantDetail:{ screen: restaurantDetail,
       navigationOptions:{
         title:"Detail"
+      }},
+      category:{screen: category,
+        navigationOptions:{
+          title:"Restautant"
       }},
       review:{ screen: review,
         navigationOptions:{
