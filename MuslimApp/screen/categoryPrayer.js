@@ -27,25 +27,25 @@ export default class componentName extends Component {
     return (
       <ScrollView>
                   { 
-                    this.state.category.map( prayer => 
-                      <Card > 
-                       <View key={prayer.placeId} >
-                          <CardSection>
-                            <View>
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:prayer.placeId})}>                             
-                                 <Image source={{uri: prayer.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
-                              </TouchableHighlight>
-                            </View>
-                           <View style={styles.container}>
-                              <Text style={{color:'black'}}>{prayer.placeName}</Text>
-                              <Text style={{color:'black'}}>Open: {prayer.placeOpeningTime}</Text>
-                              <Text style={{color:'black'}}>Close: {prayer.placeClosingTime}</Text>
-                              <Text style={{color:'black'}}>Telno: {prayer.placeTelno}</Text>
-                            </View>
-                          </CardSection>
-                        </View>
-                      </Card>
-                      )
+                    this.state.category.map( (prayer,i) =>{ 
+                      return <Card key={i}> 
+                              <View>
+                                  <CardSection>
+                                    <View>
+                                    <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:prayer.placeId})}>                             
+                                        <Image source={{uri: prayer.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
+                                      </TouchableHighlight>
+                                    </View>
+                                  <View style={styles.container}>
+                                      <Text style={{color:'black'}}>{prayer.placeName}</Text>
+                                      <Text style={{color:'black'}}>Open: {prayer.placeOpeningTime}</Text>
+                                      <Text style={{color:'black'}}>Close: {prayer.placeClosingTime}</Text>
+                                      <Text style={{color:'black'}}>Telno: {prayer.placeTelno}</Text>
+                                    </View>
+                                  </CardSection>
+                                </View>
+                              </Card>;
+                    })
                   }        
         </ScrollView>
     );

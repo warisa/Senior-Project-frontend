@@ -51,27 +51,25 @@ export default class prayerPlace extends Component {
          </Card>
             <ScrollView>
                     { 
-                      this.state.place2.map( prayerplace => 
-                        <Card>
-                         <View key={prayerplace.placeId} style={{ marginTop:10,width:'100%'}}>
-                            <CardSection>
-                             <View >
-                                <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:prayerplace.placeId})}>
-                                {/* ,
-                                  {titleId: taylor2.title,artist:taylor2.artist,thumbnail: taylor2.thumbnail_image,image: taylor2.image})}> */}
-                                   <Image source={{uri: prayerplace.imageName}} style={{width: 150, height: 100, margin: 7}}></Image>
-                                </TouchableHighlight>
-                              </View>
-                             <View style={styles.container}>
-                                <Text style={{color:'black'}}>{prayerplace.placeName}</Text>
-                                {/* <Text style={{color:'black'}}>Open: {prayerplace.placeOpeningTime}</Text>
-                                <Text style={{color:'black'}}>Close: {prayerplace.placeClosingTime}</Text> */}
-                                <Text style={{color:'black'}}>Telno : {prayerplace.placeTelno}</Text>
-                              </View>
-                            </CardSection>
-                          </View>
-                        </Card>
-                        )
+                      this.state.place2.map( (prayerplace,i) =>{ 
+                        return <Card key={i}>
+                                  <View style={{ marginTop:10,width:'100%'}}>
+                                    <CardSection>
+                                    <View >
+                                      <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:prayerplace.placeId})}>
+                                        <Image source={{uri: prayerplace.imageName}} style={{width: 150, height: 100, margin: 7}}></Image>
+                                      </TouchableHighlight>
+                                    </View>
+                                    <View style={styles.container}>
+                                        <Text style={{color:'black'}}>{prayerplace.placeName}</Text>
+                                        {/* <Text style={{color:'black'}}>Open: {prayerplace.placeOpeningTime}</Text>
+                                        <Text style={{color:'black'}}>Close: {prayerplace.placeClosingTime}</Text> */}
+                                        <Text style={{color:'black'}}>Telno : {prayerplace.placeTelno}</Text>
+                                      </View>
+                                    </CardSection>
+                                  </View>
+                                </Card>;
+                      })
                     }        
           </ScrollView>
         </View>

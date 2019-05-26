@@ -27,25 +27,25 @@ export default class componentName extends Component {
     return (
       <ScrollView>
                   { 
-                    this.state.category.map( restaurant => 
-                      <Card > 
-                       <View key={restaurant.placeId} >
-                          <CardSection>
-                            <View>
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurantDetail',{placeId:restaurant.placeId})}>                             
-                                 <Image source={{uri: restaurant.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
-                              </TouchableHighlight>
-                            </View>
-                           <View style={styles.container}>
-                              <Text style={{color:'black'}}>{restaurant.placeName}</Text>
-                              <Text style={{color:'black'}}>Open: {restaurant.placeOpeningTime}</Text>
-                              <Text style={{color:'black'}}>Close: {restaurant.placeClosingTime}</Text>
-                              <Text style={{color:'black'}}>Telno: {restaurant.placeTelno}</Text>
-                            </View>
-                          </CardSection>
-                        </View>
-                      </Card>
-                      )
+                    this.state.category.map( (restaurant,i) =>{ 
+                      return <Card key={i}> 
+                              <View>
+                                  <CardSection>
+                                    <View>
+                                    <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurantDetail',{placeId:restaurant.placeId})}>                             
+                                        <Image source={{uri: restaurant.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
+                                      </TouchableHighlight>
+                                    </View>
+                                  <View style={styles.container}>
+                                      <Text style={{color:'black'}}>{restaurant.placeName}</Text>
+                                      <Text style={{color:'black'}}>Open: {restaurant.placeOpeningTime}</Text>
+                                      <Text style={{color:'black'}}>Close: {restaurant.placeClosingTime}</Text>
+                                      <Text style={{color:'black'}}>Telno: {restaurant.placeTelno}</Text>
+                                    </View>
+                                  </CardSection>
+                                </View>
+                              </Card>;
+                    })
                   }        
         </ScrollView>
     );

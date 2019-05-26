@@ -49,15 +49,14 @@ class App extends Component {
               <ScrollView horizontal={true} style={styles.container}
                 showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                   {
-                    this.state.albums.map( taylor => 
-                    <View key={taylor.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail',{placeId:taylor.placeId})}>
-                          {/* // {titleId: taylor.title,artist:taylor.artist,thumbnail: taylor.thumbnail_image,image: taylor.image})}> */}
-                          <Image source={{uri: taylor.imageName}} style={{width: 120, height: 100, margin: 7}} />
-                          </TouchableHighlight>
-                      <Text style={{fontSize:10}}>{taylor.placeName}</Text>
-                    </View>
-                      )
+                    this.state.albums.map((shop, i) => {
+                      return <View key={i} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
+                              <TouchableHighlight onPress={() => this.props.navigation.navigate('detail',{placeId:shop.placeId})}>
+                                <Image source={{uri: shop.imageName}} style={{width: 120, height: 100, margin: 7}} />
+                              </TouchableHighlight>
+                              <Text style={{fontSize:10}}>{shop.placeName}</Text>
+                            </View>;
+                    })
                   }
             </ScrollView>
             <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerPlace')}>
@@ -66,14 +65,14 @@ class App extends Component {
             <ScrollView horizontal={true} style={styles.container}
                 showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                   {
-                    this.state.pray.map( prayer => 
-                    <View key={prayer.placeId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                          <TouchableHighlight onPress={() => this.props.navigation.navigate('detail1',{placeId:prayer.placeId})}>
-                          <Image source={{uri: prayer.imageName}} style={{width: 120, height: 100, margin: 7}} />
-                          </TouchableHighlight>
-                      <Text style={{fontSize:10}}>{prayer.placeName}</Text>
-                    </View>
-                      )
+                    this.state.pray.map((prayer, i) => { 
+                      return <View key={i} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
+                              <TouchableHighlight onPress={() => this.props.navigation.navigate('detail1',{placeId:prayer.placeId})}>
+                                <Image source={{uri: prayer.imageName}} style={{width: 120, height: 100, margin: 7}} />
+                              </TouchableHighlight>
+                              <Text style={{fontSize:10}}>{prayer.placeName}</Text>
+                            </View>;
+                    })
                   }
             </ScrollView>
          </View>
