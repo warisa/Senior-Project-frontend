@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import CardSection from './CardSection';
 import Card from './Card'
-import { Container, Content,Header,Body,Title} from 'native-base';
+import { Container, Content, Header, Title, List, ListItem, Left, Body, Right, Switch} from 'native-base';
 import Axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 
 export default class prayerTime extends Component {
   constructor(){
@@ -40,26 +41,33 @@ export default class prayerTime extends Component {
         </Header>
         <Content>
           <View>
-              <View style={{alignItems:'center',justifyContent:'center'}}>
-                   <Text style={styles.fontStyle}>Date: {this.state.date}</Text>
-                   </View>
+            <View style={{alignItems:'center',justifyContent:'center'}}>
+              <ListItem>
+                <IconEntypo name="calendar" style={{color:'black',marginRight:10}} size={30}/>
+                <Text style={styles.fontStyle}>{this.state.date}</Text>
+              </ListItem>
+            </View>
+            <Content>
+              <List>
                   { 
                     this.state.time.map( prayertime => 
-                      <Card >
-                       <View key={prayertime.prayerTimeId} >
-                       <Text style={{margin:10,color:'black',fontSize:15}}>{prayertime.prayerType}</Text>
-                          <CardSection >    
-                              <View>
-                              <Icon name="md-alarm" style={{color:'black',marginLeft:20}} size={30}/>
-                                </View>
-                                <View><Text style={{marginLeft:20,fontSize:20}}>{prayertime.prayerTime}</Text>
-                                </View>
-                          </CardSection>
-                        </View>
-                      </Card>
+                      <ListItem key={prayertime.prayerTimeId} thumbnail>
+                        <Left>
+                          <Icon name="md-alarm" style={{color:'black'}} size={30}/>
+                        </Left>
+                        <Body>
+                          <Text style={{color:'black',fontSize:25}}>{prayertime.prayerTime}</Text>
+                          <Text style={{fontSize:20}}>{prayertime.prayerType}</Text>
+                        </Body>
+                        <Right>
+                          <Switch value={false}/>
+                        </Right>
+                      </ListItem>
                       )
-                  }        
-        </View>
+                  }
+              </List> 
+            </Content> 
+          </View>
             </Content>
             </Container>
         );
@@ -74,6 +82,7 @@ export default class prayerTime extends Component {
           marginTop:10
         },
         fontStyle:{
-          fontSize: 20,
+          fontSize: 25,
+          color: 'black'
         }
     });
