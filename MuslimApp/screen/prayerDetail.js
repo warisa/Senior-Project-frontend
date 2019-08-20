@@ -14,13 +14,16 @@ export default class prayerDetail extends Component {
         super(props)
           this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
             place: [],
+              latitude: 0.0, 
+              longitude: 0.0,
             placeId: props.navigation.getParam('placeId')
           }
         }
     
       componentWillMount() {
         Axios.get('http://10.4.56.94/prayerplace/'+ this.state.placeId)
-        .then(response => this.setState({ place: response.data[0] }))
+        .then(response => this.setState({ place: response.data[0], 
+          latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude  })) 
       }
     
       render() {
@@ -53,8 +56,11 @@ export default class prayerDetail extends Component {
                       <Text style={styles.fontStyle2}>{this.state.place.placeAddress}</Text>
                   </View>
                 </CardSection>
-                <MapApp/>
-                <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดร้านเพิ่มเติม</Text>
+                  <MapApp 
+                    placeName={this.state.place.placeName}
+                    jsonMapTest={{latitude: this.state.latitude, longitude: this.state.longitude}}
+                  />
+                <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดสถานที่</Text>
                 <Card>
                   <CardSection>
                   <View style={{margin:10}}>
@@ -75,22 +81,6 @@ export default class prayerDetail extends Component {
                   )
                 }
 
-                {
-                  this.state.place.placePrayerRoom == 1 ?
-                  (
-                    <CardSection>
-                      <AntDesign name="checkcircleo" style={{color:'green'}} size={19}/>
-                      <Text style={styles.fontStyle3}>ห้องละหมาด</Text>
-                    </CardSection>
-                  )
-                  :
-                  (
-                    <CardSection>
-                      <Feather name="x-circle" style={{color:'red'}} size={20}/>
-                      <Text style={styles.fontStyle4}>ห้องละหมาด</Text>
-                    </CardSection>
-                  )
-                }
                 </View>
                 <View style={{margin:10}}>
                  {
@@ -109,37 +99,21 @@ export default class prayerDetail extends Component {
                     </CardSection>
                   )
                 }
-                {
-                  this.state.place.placeCreditCard == 1 ?
-                  (
-                    <CardSection>
-                      <AntDesign name="checkcircleo" style={{color:'green'}} size={19}/>
-                      <Text style={styles.fontStyle3}> - รับบัตรเครดิต </Text>
-                    </CardSection>
-                  )
-                  :
-                  (
-                    <CardSection>
-                      <Feather name="x-circle" style={{color:'red'}} size={20}/>
-                      <Text style={styles.fontStyle4}>รับบัตรเครดิต </Text>
-                    </CardSection>
-                  )
-                }
                 </View>
                 <View style={{margin:10}}>
                 {
-                  this.state.place.placeReserve == 1 ?
+                  this.state.place.placePrayerRoom == 1 ?
                   (
                     <CardSection>
                       <AntDesign name="checkcircleo" style={{color:'green'}} size={19}/>
-                      <Text style={styles.fontStyle3}>จองล่วงหน้า </Text>
+                      <Text style={styles.fontStyle3}>ห้องละหมาด</Text>
                     </CardSection>
                   )
                   :
                   (
                     <CardSection>
                       <Feather name="x-circle" style={{color:'red'}} size={20}/>
-                      <Text style={styles.fontStyle4}>จองล่วงหน้า </Text>
+                      <Text style={styles.fontStyle4}>ห้องละหมาด</Text>
                     </CardSection>
                   )
                 }
