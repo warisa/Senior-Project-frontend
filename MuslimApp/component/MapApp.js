@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,Button } from 'react-native';
 import MapView from 'react-native-maps';
+import openMap from 'react-native-open-maps';
 
 class MapApp extends Component {
   constructor(props) {
@@ -9,25 +10,24 @@ class MapApp extends Component {
     };
   }
 
+  
   render() {
     return (
         <View style={styles.container}>
             <MapView
                 style={styles.map}
-                initialRegion={{ // initial region set to Bileto
-                    latitude: 13.636544, 
-                    longitude: 100.491329,
+                region={{ // initial region set to Bileto
+                    latitude: this.props.jsonMapTest.latitude, 
+                    longitude: this.props.jsonMapTest.longitude,
                     latitudeDelta: 0.015,
                     longitudeDelta: 0.0121,
                 }}
                 showsUserLocation={true}
             >
             <MapView.Marker
-                coordinate={{
-                    latitude: 13.636544, 
-                    longitude: 100.491329,
-                }}
-                title={"I-MY SHABU"}
+                onPress={() => { openMap({ latitude: this.props.jsonMapTest.latitude, longitude: this.props.jsonMapTest.longitude }); }}
+                coordinate={this.props.jsonMapTest}
+                title={this.props.placeName}
              />
              </MapView>
         </View>
