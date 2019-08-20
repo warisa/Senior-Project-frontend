@@ -62,8 +62,8 @@ export default class prayerPlace extends Component {
                                     </View>
                                     <View style={styles.container}>
                                         <Text style={{color:'black'}}>{prayerplace.placeName}</Text>
-                                        {/* <Text style={{color:'black'}}>Open: {prayerplace.placeOpeningTime}</Text>
-                                        <Text style={{color:'black'}}>Close: {prayerplace.placeClosingTime}</Text> */}
+                                        <Text style={{color:'red'}}>Open: {prayerplace.placeOpeningTime}</Text>
+                                        <Text style={{color:'red'}}>Close: {prayerplace.placeClosingTime}</Text>
                                         <Text style={{color:'black'}}>Telno : {prayerplace.placeTelno}</Text>
                                       </View>
                                     </CardSection>
