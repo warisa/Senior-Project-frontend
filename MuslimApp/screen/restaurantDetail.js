@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableHighlight} from 'react-native';
+import { View, Text, Image, TouchableOpacity} from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -8,40 +8,41 @@ import MapApp from '../component/MapApp';
 import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import Material from 'react-native-vector-icons/MaterialIcons';
+import ImageView from 'react-native-image-view';
+
+
 
 export default class restaurantDetail extends Component {
+
 
   constructor(props){
     super(props)
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
         place: [],
         image:[],
+        ImageUrl: null,
+        isImageViewVisible: false,
+        latitude: 0.0, 
+        longitude: 0.0,
         placeId: props.navigation.getParam('placeId')
       }
     }
 
   componentWillMount() {
     Axios.get('http://10.4.56.94/restaurant/'+ this.state.placeId)
-    .then(response => this.setState({ place: response.data[0], image: response.data }))
+    .then(response => this.setState({ place: response.data[0], image: response.data,
+                      latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude }))
   }
+  
 
   render() {
+    const{isImageViewVisible} = this.state;
     // const { navigation } = this.props;
     // const placeId = navigation.getParam('placeId');
     // const Name = navigation.getParam('placeName');
     return (
       <Container>
-      {/* <Header span>
-          <Left>
-            <Button transparent >
-              <Icon name="arrow-back"  onPress={() => this.props.navigation.goBack()}/>
-            </Button>
-          </Left>
-          <Body>
-            <Text style={{fontSize:18,color:'white',fontWeight:'bold'}}>{JSON.stringify(Name)}</Text>
-          </Body>
-          <Right />
-        </Header> */}
         <ScrollView>
         <Card>
           <Image source={{uri:this.state.place.imageName}}
@@ -51,16 +52,6 @@ export default class restaurantDetail extends Component {
               <View style={{borderRadius:30,backgroundColor:'#FFDAB9'}}>
                 <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}> Title: {this.state.place.placeName}</Text>
               </View>
-                  {/* <ScrollView horizontal={true} style={{flexDirection:'row'}} 
-                    showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
-                         {
-                            this.state.image.map( image => 
-                            <View key={image.imageId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                                  <Image source={{uri: image.imageName}} style={{width: 120, height: 100, margin: 7}} />
-                            </View>
-                            )
-                          }      
-                  </ScrollView> */}
               </View>
             </CardSection>
             <CardSection>
@@ -69,19 +60,36 @@ export default class restaurantDetail extends Component {
                     <ScrollView horizontal={true} style={{flexDirection:'row'}} 
                     showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                          {
-                            this.state.image.map( image => 
-                            <View key={image.imageId} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                                  <Image source={{uri: image.imageName}} style={{width: 120, height: 100, margin: 7}} />
-                            </View>
-                            )
+                            this.state.image.map( images => (
+                            <TouchableOpacity key={images.imageId} 
+                            // style={{alignItems: 'center', marginTop:10, width:130,height:150}}
+                                onPress={() => {
+                                  this.setState({
+                                    ImageUrl: images.imageName,
+                                    isImageViewVisible: true
+                                  });
+                                }} 
+                            >
+                                  <Image 
+                                    source={{uri: images.imageName}} 
+                                    style={{width: 120, height: 100,margin:7}} />
+                            </TouchableOpacity>
+                            ))
                           }      
+                          <ImageView
+                            images={[{ source: {  uri: this.state.ImageUrl } }]}
+                            imageIndex={0}
+                            imageWidth={400}
+                            imageHeight={800}
+                            isVisible={this.state.isImageViewVisible}
+                          />
                   </ScrollView>
                 </View>  
             </CardSection>
             <CardSection>
               <View>
               <Text style={{color:'black',fontSize:20,fontWeight:'bold'}}>รายละเอียดร้าน:</Text>
-              <Text style={styles.fontStyle}>เปิดให้บริการ: </Text>
+              {/* <Text style={styles.fontStyle}>เปิดให้บริการ: </Text> */}
               <Text style={styles.fontStyle}>เวลาให้บริการ: </Text>
               <Text style={styles.fontStyle}>ช่วงราคา: </Text>
               <Text style={styles.fontStyle}>เบอร์โทรศัพท์: </Text>
@@ -89,7 +97,7 @@ export default class restaurantDetail extends Component {
               <Text style={styles.fontStyle}>เพจของร้าน: </Text>
               </View>
               <View style={{marginTop:35,flex:1,width:'100%'}}>
-                  <Text style={styles.fontStyle2}>เปิดให้บริการอยู่ในขณะนี้</Text>
+                  {/* <Text style={styles.fontStyle2}>เปิดให้บริการอยู่ในขณะนี้</Text> */}
                   <Text style={styles.fontStyle2}>{this.state.place.placeOpeningTime}-{this.state.place.placeClosingTime}</Text>
                   <Text style={styles.fontStyle2}>{this.state.place.placePriceRange}</Text>
                   <Text style={styles.fontStyle2}>{this.state.place.placeTelno}</Text>
@@ -100,8 +108,7 @@ export default class restaurantDetail extends Component {
             </CardSection>
             <MapApp 
               placeName={this.state.place.placeName}
-              latitude={this.state.place.latitude} 
-              longitude={this.state.place.longtitude}
+              jsonMapTest={{latitude: this.state.latitude, longitude: this.state.longitude}}
             />
             <Text style={{color:'black',fontSize:17,fontWeight:'bold',marginTop:5}}>รายละเอียดร้านเพิ่มเติม</Text>
             <Card>
@@ -196,9 +203,13 @@ export default class restaurantDetail extends Component {
               </CardSection>
             </Card>
             <View style={{justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-            <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('review')}>
+            {/* <Button style={[styles.buttonContainer, styles.reviewButton]}  onPress={() => this.props.navigation.navigate('review')}>
                 <Text>Review</Text>
-            </Button>
+            </Button> */}
+                <Button style={[styles.buttonContainer, styles.reviewButton]} onPress={() => this.props.navigation.navigate('review')}>
+                  <Material name='rate-review' style={{color:'white'}} size={20}/>
+                  <Text style={{color:'white',marginLeft:10}}>Review</Text>
+                </Button>
             </View>
         </Card>
         </ScrollView>
