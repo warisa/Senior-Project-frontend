@@ -41,7 +41,7 @@ class App extends Component {
     return (
       <Content>
         <View>
-          <Image source={require('./image/Imageforlogo.png')} style={{width:'100%',height:150}} />
+          <Image source={require('./image/Halallogo.png')} style={{width:'100%',height:150}} />
               <TouchableHighlight onPress={() => this.props.navigation.navigate('restaurant')}>
                 <Text style={{marginTop:10,fontSize:15, color:'black'}}>Restaurant</Text>
               </TouchableHighlight>
@@ -84,7 +84,6 @@ const StackNavigator = createStackNavigator(
   {
     Navigate:{ screen: App,
      navigationOptions:{
-       title:"Home"
      }},
       detail:{ screen: restaurantDetail,
         navigationOptions:{
