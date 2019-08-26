@@ -6,7 +6,7 @@ import Axios from 'axios';
 import { Item,Icon,Input, ListItem, Left, Body, Right, List } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default class prayerPlace extends Component {
+export default class prayPlace extends Component {
   constructor(){
     super()
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่

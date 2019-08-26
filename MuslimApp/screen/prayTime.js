@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
-export default class prayerTime extends Component {
+export default class prayTime extends Component {
   constructor(){
     super()
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
@@ -36,7 +36,7 @@ export default class prayerTime extends Component {
           <Container>
           <Header style={{backgroundColor: '#CC6600'}}>
           <Body>
-            <Title>Prayer Time</Title>
+            <Title>Pray Time</Title>
           </Body>
         </Header>
         <Content>
@@ -50,14 +50,14 @@ export default class prayerTime extends Component {
             <Content>
               <List>
                   { 
-                    this.state.time.map( prayertime => 
-                      <ListItem key={prayertime.prayerTimeId} thumbnail>
+                    this.state.time.map( praytime => 
+                      <ListItem key={praytime.prayerTimeId} thumbnail>
                         <Left>
                           <Icon name="md-alarm" style={{color:'black'}} size={30}/>
                         </Left>
                         <Body>
-                          <Text style={{color:'black',fontSize:25}}>{prayertime.prayerTime}</Text>
-                          <Text style={{fontSize:20}}>{prayertime.prayerType}</Text>
+                          <Text style={{color:'black',fontSize:25}}>{praytime.prayerTime}</Text>
+                          <Text style={{fontSize:20}}>{praytime.prayerType}</Text>
                         </Body>
                         <Right>
                           <Switch value={false}/>

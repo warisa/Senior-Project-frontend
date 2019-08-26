@@ -9,7 +9,7 @@ import Axios from 'axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 
-export default class prayerDetail extends Component {
+export default class prayDetail extends Component {
     constructor(props){
         super(props)
           this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
