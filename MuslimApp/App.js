@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight} from 'react-native';
 import restaurant from './screen/restaurant';
-import prayerPlace from './screen/prayerPlace';
-import prayerTime from './screen/prayerTime';
+import prayPlace from './screen/prayPlace';
+import prayTime from './screen/prayTime';
 import account from './screen/account';
 import {createBottomTabNavigator,createAppContainer, createStackNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,7 +15,7 @@ import Axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
 import Card from './screen/Card';
 import restaurantDetail from './screen/restaurantDetail';
-import prayerDetail from './screen/prayerDetail';
+import prayDetail from './screen/prayDetail';
 import category from './screen/category';
 import categoryPrayer from './screen/categoryPrayer';
 import restaurantPrayer from './screen/restaurantPrayer';
@@ -59,18 +59,18 @@ class App extends Component {
                     })
                   }
             </ScrollView>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerPlace')}>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('prayPlace')}>
                 <Text style={{marginTop:10,fontSize:15, color:'black'}}>Prayer Place</Text>
               </TouchableHighlight>
             <ScrollView horizontal={true} style={styles.container}
                 showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                   {
-                    this.state.pray.map((prayer, i) => { 
+                    this.state.pray.map((pray, i) => { 
                       return <View key={i} style={{alignItems: 'center', marginTop:10, width:130,height:150}}>
-                              <TouchableHighlight onPress={() => this.props.navigation.navigate('detail1',{placeId:prayer.placeId})}>
-                                <Image source={{uri: prayer.imageName}} style={{width: 120, height: 100, margin: 7}} />
+                              <TouchableHighlight onPress={() => this.props.navigation.navigate('detail1',{placeId:pray.placeId})}>
+                                <Image source={{uri: pray.imageName}} style={{width: 120, height: 100, margin: 7}} />
                               </TouchableHighlight>
-                              <Text style={{fontSize:10}}>{prayer.placeName}</Text>
+                              <Text style={{fontSize:10}}>{pray.placeName}</Text>
                             </View>;
                     })
                   }
@@ -90,7 +90,7 @@ const StackNavigator = createStackNavigator(
           title:"Detail"
         }
       },
-      detail1:{ screen: prayerDetail,
+      detail1:{ screen: prayDetail,
         navigationOptions:{
           title:"Detail"
         }
@@ -146,11 +146,11 @@ const StackNavigator2 = createStackNavigator(
 );
 const StackNavigator3 = createStackNavigator(
   {
-    prayerPlace:{ screen: prayerPlace,
+    prayerPlace:{ screen: prayPlace,
      navigationOptions:{
-       title:"Prayer Place"
+       title:"Pray Place"
      }},
-     prayerDetail:{ screen: prayerDetail,
+     prayerDetail:{ screen: prayDetail,
       navigationOptions:{
         title:"Detail"
       }},
@@ -197,14 +197,14 @@ const TabNavigator = createBottomTabNavigator(
         )
       }
     },
-    PrayerPlace:{screen: StackNavigator3,
+    PrayPlace:{screen: StackNavigator3,
       navigationOptions:{
         tabBarIcon:()=>(
           <Icons name="home-map-marker" style={{color:'white'}} size={25}/>
         )
       }
     },
-    PrayerTime:{screen: prayerTime,
+    PrayTime:{screen: prayTime,
       navigationOptions:{
         tabBarIcon:()=>(
           <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
