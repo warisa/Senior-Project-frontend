@@ -21,7 +21,8 @@ export default class restaurantDetail extends Component {
       this.state = { //ประกาศตัวแปรใน this.state นอกstate = ค่าคงที่
         place: [],
         image:[],
-        ImageUrl: null,
+        ImageUrl: [],
+        ImageIndex: 0,
         isImageViewVisible: false,
         latitude: 0.0, 
         longitude: 0.0,
@@ -31,8 +32,18 @@ export default class restaurantDetail extends Component {
 
   componentWillMount() {
     Axios.get('http://10.4.56.94/restaurant/'+ this.state.placeId)
-    .then(response => this.setState({ place: response.data[0], image: response.data,
-                      latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude }))
+    .then(response => {
+      this.setState({ place: response.data[0], image: response.data,
+                      latitude: this.state.latitude + response.data[0].latitude, longitude: this.state.longitude + response.data[0].longitude
+      });
+      this.setImage();
+    })
+  }
+
+  setImage(){
+    this.state.image.map( images => {
+      this.setState({ ImageUrl: [ ...this.state.ImageUrl, { source: {  uri: images.imageName } }] })
+    });
   }
   
 
@@ -60,12 +71,12 @@ export default class restaurantDetail extends Component {
                     <ScrollView horizontal={true} style={{flexDirection:'row'}} 
                     showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                          {
-                            this.state.image.map( images => (
+                            this.state.image.map( (images, i) => (
                             <TouchableOpacity key={images.imageId} 
                             // style={{alignItems: 'center', marginTop:10, width:130,height:150}}
                                 onPress={() => {
                                   this.setState({
-                                    ImageUrl: images.imageName,
+                                    ImageIndex: i,
                                     isImageViewVisible: true
                                   });
                                 }} 
@@ -77,8 +88,9 @@ export default class restaurantDetail extends Component {
                             ))
                           }      
                           <ImageView
-                            images={[{ source: {  uri: this.state.ImageUrl } }]}
-                            imageIndex={0}
+                            //images={[{ source: {  uri: this.state.ImageUrl } }]}
+                            images={this.state.ImageUrl}
+                            imageIndex={this.state.ImageIndex}
                             imageWidth={400}
                             imageHeight={800}
                             isVisible={this.state.isImageViewVisible}
