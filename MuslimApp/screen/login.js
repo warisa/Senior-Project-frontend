@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { Container, Header, Title, Button, Icon, Left, Right, Body, Content } from "native-base";
+import { Container, Title, Button, Icon, Left, Right, Body, Content } from "native-base";
 import Entypo from 'react-native-vector-icons/Entypo';
 
 export default class login extends Component {
   render() {
     return (
-  
+
       <View style={styles.container}>
         <Body>
             <Image source={require('../image/Halal.png')}/>
@@ -38,6 +38,6 @@ export default class login extends Component {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor:'#CC6600'
+          backgroundColor:'#FF8200'
       }
   });
