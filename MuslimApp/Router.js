@@ -3,8 +3,11 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import login from './screen/login';
 import home from './screen/home';
 import restaurant from './screen/restaurant';
+import category from './screen/category';
 import restaurantDetail from './screen/restaurantDetail';
 import prayPlace from './screen/prayPlace';
+import categoryPray from './screen/categoryPray';
+import restaurantPray from './screen/restaurantPray';
 import prayDetail from './screen/prayDetail';
 import prayTime from './screen/prayTime';
 
@@ -38,6 +41,16 @@ const StackNavigator = createStackNavigator(
             }
         }
     },
+    CATEGORY:{
+        screen: category,
+        navigationOptions:{
+            title: 'Category',
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
     RESTAURANTDETAIL:{
         screen: restaurantDetail,
         navigationOptions:{
@@ -53,6 +66,26 @@ const StackNavigator = createStackNavigator(
         navigationOptions:{
             title: 'Pray Place',
             headerLeft: null,
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    CATEGORYPRAY:{
+        screen: categoryPray,
+        navigationOptions:{
+            title: 'Category Pray',
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#FF8200'
+            }
+        }
+    },
+    RESTAURANTPRAY:{
+        screen: restaurantPray,
+        navigationOptions:{
+            title: 'Restaurant Pray',
             headerTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#FF8200'

@@ -5,7 +5,7 @@ import Card from './Card';
 import CardSection from './CardSection';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default class componentName extends Component {
+export default class categoryPray extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ export default class componentName extends Component {
                               <View>
                                   <CardSection>
                                     <View>
-                                    <TouchableHighlight onPress={() => this.props.navigation.navigate('prayerDetail',{placeId:prayer.placeId})}>                             
+                                    <TouchableHighlight onPress={() => this.props.navigation.navigate('PRAYDETAIL',{placeId:prayer.placeId})}>                             
                                         <Image source={{uri: prayer.imageName}} style={{width:150,height: 100, margin: 7}}></Image>
                                       </TouchableHighlight>
                                     </View>

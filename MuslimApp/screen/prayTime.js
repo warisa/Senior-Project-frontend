@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Container, Content, Header, Title, List, ListItem, Left, Body, Right, Switch} from 'native-base';
+import { Container, Content, List, ListItem, Left, Body, Right, Switch, Footer, FooterTab, Button} from 'native-base';
 import Axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
 export default class prayTime extends Component {
@@ -33,19 +34,14 @@ export default class prayTime extends Component {
     render() {
           return (
             <Container>
-            <Header style={{backgroundColor: '#CC6600'}}>
-            <Body>
-              <Title>Pray Time</Title>
-            </Body>
-          </Header>
-          <Content>
-            <View>
-              <View style={{alignItems:'center',justifyContent:'center'}}>
-                <ListItem>
-                  <IconEntypo name="calendar" style={{color:'black',marginRight:10}} size={30}/>
-                  <Text style={styles.fontStyle}>{this.state.date}</Text>
-                </ListItem>
-              </View>
+              <Content>
+                <View>
+                  <View style={{alignItems:'center',justifyContent:'center'}}>
+                    <ListItem>
+                      <IconEntypo name="calendar" style={{color:'black',marginRight:10}} size={30}/>
+                      <Text style={styles.fontStyle}>{this.state.date}</Text>
+                    </ListItem>
+                </View>
               <Content>
                 <List>
                     { 
@@ -67,21 +63,45 @@ export default class prayTime extends Component {
                 </List> 
               </Content> 
             </View>
-              </Content>
-              </Container>
-          );
-        }
-      }
+          </Content>
+          <Footer>
+            <FooterTab style={{backgroundColor: '#FF8200'}}>
+              <Button onPress={() => this.props.navigation.navigate('HOME')}>
+                <Icon name="ios-home" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Home</Text>
+              </Button>
+              <Button onPress={() => this.props.navigation.navigate('RESTAURANT')}>
+                <Icon name="md-restaurant" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Restaurant</Text>
+              </Button>
+              <Button onPress={() => this.props.navigation.navigate('PRAYPLACE')}>
+                <Icons name="home-map-marker" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Pray Place</Text>
+              </Button>
+              <Button>
+                <Icon name="ios-alarm" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Pray Time</Text>
+              </Button>
+              <Button onPress={() => this.props.navigation.navigate('')}>
+                <Icon name="ios-contact" style={{color:'white'}} size={25}/>
+                <Text style={{color:'white',fontSize:10}} >Profile</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+        </Container>
+      );
+    }
+  }
       
-      const styles = StyleSheet.create({
-          container:{
-              margin : 10
-          },
-          card:{
-            marginTop:10
-          },
-          fontStyle:{
-            fontSize: 25,
-            color: 'black'
-          }
-      });
+  const styles = StyleSheet.create({
+      container:{
+          margin : 10
+      },
+      card:{
+        marginTop:10
+      },
+      fontStyle:{
+        fontSize: 25,
+        color: 'black'
+      }
+  });
