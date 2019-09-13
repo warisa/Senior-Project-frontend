@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Container, Title, Button, Icon, Left, Right, Body, Content } from "native-base";
 import Entypo from 'react-native-vector-icons/Entypo';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 export default class login extends Component {
   render() {
@@ -10,10 +11,23 @@ export default class login extends Component {
       <View style={styles.container}>
         <Body>
             <Image source={require('../image/Halal.png')}/>
-            <Button block style={{marginTop:60}} onPress={() => this.props.navigation.navigate('HOME')}>
-              <Entypo name='facebook' style={{color:'white',marginLeft:10}} size={20}/>
-              <Text style={{color:'white',marginLeft:10}}>Login with facebook  </Text>
-            </Button>
+            <LoginButton
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                console.log("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                console.log("login is cancelled.");
+              } else {
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    console.log(data.accessToken.toString())
+                  }
+                )
+              }
+            }
+          }
+          onLogoutFinished={() => console.log("logout.")}/>
         </Body>
       {/* <Header span style={styles.container}>
         <Left>
