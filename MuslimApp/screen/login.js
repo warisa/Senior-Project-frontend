@@ -7,10 +7,9 @@ import { LoginButton, AccessToken } from 'react-native-fbsdk';
 export default class login extends Component {
   render() {
     return (
-
       <View style={styles.container}>
-        <Body>
-            <Image source={require('../image/Halal.png')}/>
+        <Body style={styles.logo}>
+            <Image style={{width:250,height:250,marginBottom:20}} source={require('../image/app_logo.png')}/>
             <LoginButton
           onLoginFinished={
             (error, result) => {
@@ -29,19 +28,6 @@ export default class login extends Component {
           }
           onLogoutFinished={() => console.log("logout.")}/>
         </Body>
-      {/* <Header span style={styles.container}>
-        <Left>
-          
-        </Left>
-        <Body>
-          <FontAwesome name='user-circle-o' style={{color:'white'}} size={30}/>
-        </Body>
-        <Right>
-        <Button bordered style={{marginTop:60}}>
-                  <Text style={{color:'white',marginLeft:10}}>Log in facebook</Text>
-                </Button>
-        </Right>
-      </Header> */}
     </View>
       );
     }
@@ -50,8 +36,12 @@ export default class login extends Component {
   const styles = StyleSheet.create({
       container:{
           flex: 1,
+          backgroundColor:'#FF8200'
+      },
+      logo:{
+        flex: 1,
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor:'#FF8200'
       }
   });
