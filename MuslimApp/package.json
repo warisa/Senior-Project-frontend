@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@jumpn/react-native-jetifier": "^0.1.4",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "global": "^4.3.2",
     "native-base": "^2.12.1",
     "prop-types": "^15.7.2",
